@@ -13,5 +13,5 @@ Commands_Kral_parallel.py computes the ISRF for each target coordinate from Kral
 
 Commands_spectrum.py computes the spectrum of the ISRF at the location of the Sun (you can change these coordinates to compute the spectrum somewhere else). You can chose a list of wavelengths greater than 1000 Angstrom. A pandas file is saved, s well as the figure.
 
-Commands_Anisotropy.py computes the map of the ISRF at the location of the Sun (you can change these coordinates to compute the map somewhere else). You can chose the wavelength. A 2D array is saved, as well as the galactic map plotted on a fiugre.
+Commands_Anisotropy.py computes the map of the ISRF at the location of the Sun (you can change these coordinates to compute the map somewhere else). You can chose the wavelength. A 2D array is saved, as well as the galactic map plotted on a figure.
 
