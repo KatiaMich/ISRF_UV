@@ -1,7 +1,7 @@
 # ISRF_UV
 This code enables to compute the interstellar radiation field at the chosen wavelength and location. Wavelength should be between 1000 and 2000 A, and location within 200 pc from the Sun for a good accuracy.
 
-Chose a directory where you save all the python files, and a directory where you save the catalog. The path to these directories has to be written down in the 'Commands' file.
+Chose a directory where you save all the python files, and a directory where you save the catalog. The catalog can be found in .......  The path to these directories has to be written down in the 'Commands' file.
 The 'Commands' file call the FluxCalculator and the ReadDustMap files to compute the ISRF. Then it writes down the results in a directory called 'result' or 'resultKral', that you have to create beforehand.
 For chosing the wavelength or wavelengths at which you want to compute the ISRF, you have to modify the first lines of the 'Commands' file.
 
