@@ -10,15 +10,11 @@ co = np.array([x0,y0,z0])
 Catalog_cd = 'all_Catalogs/'
 cwd = '/home/katia/Computation/'
 wavelengthsTD1 = [912,1565, 1965, 2365, 2740]
-wavelength00 = np.arange(920, 1500, 10)
+wavelengths0 = np.arange(920, 1500, 10)
 wavelengths1  = np.arange(1500,2000,10)
-#wavelengths2  = np.arange(2000,2900,100)
-wavelengths0 = np.concatenate((wavelengthsTD1,wavelength00, wavelengths1))#,wavelengths2))
-wavelengths = np.sort(wavelengths0)
-
-
-
-
+wavelengths2  = np.arange(2000,2900,100)
+wavelengths_not_sorted = np.concatenate((wavelengthsTD1,wavelengths0, wavelengths1,wavelengths2))
+wavelengths = np.sort(wavelengths_not_sorted)
 
 def DefineMatrix_dustMap():
     X = np.arange(-3000,3001,5) #dimension of the dust map, one value every 5 pc
