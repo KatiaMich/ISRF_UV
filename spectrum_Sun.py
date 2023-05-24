@@ -18,9 +18,9 @@ wavelengths = np.sort(wavelengths0)
 
 
 
-flux_lambda = np.zeros(len(wavelengths))
 
-def DefineMatrix():
+
+def DefineMatrix_dustMap():
     X = np.arange(-3000,3001,5) #dimension of the dust map, one value every 5 pc
     Y = np.arange(-3000,3001,5)
     Z = np.arange(-400,401,5)
@@ -28,7 +28,7 @@ def DefineMatrix():
     interpolated_dustMap = RegularGridInterpolator((X,Y,Z),matrixDust,bounds_error=False,fill_value=0) 
     return interpolated_dustMap
 
-interpolated_dustMap = DefineMatrix()
+interpolated_dustMap = DefineMatrix_dustMap()
 
 def Compute_summed_flux(wavelength):
     #Stars in Hipparcos, not in StarHorse 
@@ -54,6 +54,7 @@ def Compute_summed_flux(wavelength):
     fluxTot = flux0+flux1+flux2
     return fluxTot
 
+flux_lambda = np.zeros(len(wavelengths))
 for k in range(len(wavelengths)):
     wavelength = wavelengths[k]
     flux_lambda[k] = Compute_summed_flux(wavelength)
