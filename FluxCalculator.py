@@ -5,22 +5,22 @@ from scipy import interpolate
 
 import ReadDustMap as dust
 
-def colorFunction(g,Teff,wavelength): 
-    X = np.array(g['teff50'])
-    Y = np.array(g['ratio_'+str(wavelength)+'A'])
-    function = sc.interpolate.interp1d(X,Y, fill_value = 'extrapolate')
-    return function(Teff)
+def colorFunction(g,Teff,wavelength): #the amount of flux in the UV in units of visible flux varies with temperature. The function describing this variation is called colour function.
+    temperature = np.array(g['teff50'])
+    flux_ratio = np.array(g['ratio_'+str(wavelength)+'A'])
+    color_function = sc.interpolate.interp1d(temperature,flux_ratio, fill_value = 'extrapolate')
+    return color_function(Teff)
 
-def extinctionRatio(wavelength,extinction_Function):
+def extinctionRatio(wavelength,extinction_Function): #the extinction depends on wavelength. Since extinction by dust is provided in the visual band, in it convenient to work with the ratio.
     ext = extinction_Function.loc[extinction_Function['wavelength']==wavelength]['Alambda_over_A_V']
     return float(ext)
     
 def Vegaflux(HIPvsSH):
     if HIPvsSH == 'SH':
-        #flux in the gaia band pass, svo
+        #flux from Vega in the gaia band pass, from svo
         return 2.50386e-9
     if HIPvsSH == 'HIP': 
-        #flux in the  hipparcos band pass, svo
+        #flux from Vega in the hipparcos band pass, from svo
         return 3.76938e-9 
     
 def exponent(HIPvsSH,filename,co,interpolated_dustMap,Alambda_overAv):
@@ -37,9 +37,9 @@ def exponent(HIPvsSH,filename,co,interpolated_dustMap,Alambda_overAv):
     
     return expo #this is a numpy array
 
-def importFiles(HIPvsSH,pdtable,cwd):
+def importFiles(HIPvsSH,catalogue,cwd):
     extinction_Function = pd.read_pickle(cwd+'/inputs/extinctionFunction')
-    Teff = pdtable['teff50']
+    Teff = catalogue['teff50']
     
     if HIPvsSH == 'SH':
         g = pd.read_pickle(cwd+'/inputs/ColourFunctionStarHorse.pkl')
@@ -49,8 +49,8 @@ def importFiles(HIPvsSH,pdtable,cwd):
     return extinction_Function, g, Teff      
 
 def getFlux(HIPvsSH,filename, wavelength,co,interpolated_dustMap,cwd):
-    pdtable = pd.read_pickle(filename)
-    extinction_Function, g, Teff = importFiles(HIPvsSH,pdtable,cwd)   
+    catalogue = pd.read_pickle(filename)
+    extinction_Function, g, Teff = importFiles(HIPvsSH,catalogue,cwd)   
 
     Alambda_overAv = extinctionRatio(wavelength,extinction_Function)
     expon = exponent(HIPvsSH, filename,co,interpolated_dustMap,Alambda_overAv)
