@@ -27,10 +27,10 @@ interpolated_dustMap = DefineMatrix_dustMap()
 ###############Stars in Hipparcos, not in StarHorse 
 HIPvsSH = 'HIP'
 filename = cwd+Catalog_cd+'HIPL_2023_cleanedBinaries'
-pdtable = pd.read_pickle(filename)
+catalogue = pd.read_pickle(filename)
 fluxes = fc.getFlux(HIPvsSH, filename ,wavelength,co,interpolated_dustMap,cwd) #this is a long array
 pdFluxes = pd.DataFrame({'flux':fluxes})
-df = pd.concat((pdtable.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
+df = pd.concat((catalogue.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
 df.to_pickle('result/HIPL_2023_Sun')
 
 
