@@ -37,17 +37,17 @@ df.to_pickle('result/HIPL_2023_Sun')
 ###############Stars is StarHorse, first the ones with a known spectral type from an external catalog
 HIPvsSH = 'SH'
 filename = cwd+Catalog_cd+'SH_2023_external_SpType'
-pdtable = pd.read_pickle(filename)
+catalogue = pd.read_pickle(filename)
 fluxes = fc.getFlux(HIPvsSH, filename ,wavelength,co,interpolated_dustMap,cwd) #this is a long array
 pdFluxes = pd.DataFrame({'flux':fluxes})
-df = pd.concat((pdtable.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
+df = pd.concat((catalogue.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
 df.to_pickle('result/SH_extSpType_2023_Sun')
 
 ###############Stars is StarHorse, the ones without a spectral type, where we use StarHorse temperature.
 HIPvsSH = 'SH'
 filename = cwd+Catalog_cd+'SH_2023_noSpType_above20000'
-pdtable = pd.read_pickle(filename)
+catalogue = pd.read_pickle(filename)
 fluxes = fc.getFlux(HIPvsSH, filename ,wavelength,co,interpolated_dustMap,cwd) #this is a long array
 pdFluxes = pd.DataFrame({'flux':fluxes})
-df = pd.concat((pdtable.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
+df = pd.concat((catalogue.reset_index(drop=True),pdFluxes.reset_index(drop=True)),axis=1)
 df.to_pickle('result/SH_noSpType_2023_Sun')
